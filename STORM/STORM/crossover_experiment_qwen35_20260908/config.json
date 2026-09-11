@@ -1,0 +1,40 @@
+{
+  "adaptive_threshold": 4,
+  "conditions": [
+    "P0",
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P1-pad",
+    "adaptive"
+  ],
+  "continuation_count": 1152,
+  "created_at": "2026-09-08T10:45:01.839497+00:00",
+  "endpoint": "http://127.0.0.1:8102/v1",
+  "episode_count": 48,
+  "model": "qwen3.5-35b-a3b",
+  "model_path": "/shared/models/hf/Qwen3.5-35B-A3B",
+  "max_tokens": 400,
+  "scenario_count": 6,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "staleness_levels": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "temperature": 0.4,
+  "timeout": 300.0,
+  "top_p": 0.8,
+  "workers": 8
+}

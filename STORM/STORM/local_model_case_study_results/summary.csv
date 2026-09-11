@@ -1,0 +1,8 @@
+condition,n,recovery_success_rate,action_accuracy,mean_payload_tokens_proxy,mean_model_prompt_tokens,mean_model_completion_tokens,mean_model_total_tokens
+P0,4,0.25,0.5,6,225.25,287,512.25
+P1,4,0.5,0.5,72.25,370.5,124,494.5
+P2,4,0.5,0.5,84,387.5,157.75,545.25
+P3,4,1,1,120.5,430.5,116,546.5
+P5,4,1,1,86,393.25,101.5,494.75
+P1-pad,4,0.5,0.5,120.5,428,136,564
+adaptive,4,1,1,79.75,382.5,95.5,478

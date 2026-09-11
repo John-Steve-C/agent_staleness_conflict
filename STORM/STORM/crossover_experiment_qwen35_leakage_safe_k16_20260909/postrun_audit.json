@@ -1,0 +1,16 @@
+{
+  "adapt_revisions_rescored": 1559,
+  "forbidden_prompt_field_count": 0,
+  "invalid_recovery_responses": {
+    "P0": 35,
+    "P1-pad": 1,
+    "P2": 6,
+    "P3": 1,
+    "P4": 13,
+    "adaptive": 4
+  },
+  "logged_score_mismatches": 0,
+  "p3_directive_cue_count": 0,
+  "p3_prompts_audited": 384,
+  "passed": true
+}

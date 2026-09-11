@@ -1,0 +1,246 @@
+<div id="p3-staleness-curves">
+  <h3>Leakage-safe recovery success vs. staleness</h3>
+  <div class="series-controls" aria-label="Visible strategies"></div>
+  <div class="plot-wrap">
+    <svg role="img" aria-labelledby="p3-curves-title p3-curves-desc">
+      <title id="p3-curves-title">Recovery success by staleness and payload</title>
+      <desc id="p3-curves-desc">P3 is above P1 at low staleness and below P1 at high staleness. P4 is generally worse despite being the largest payload.</desc>
+    </svg>
+    <div class="tooltip" role="tooltip" hidden></div>
+  </div>
+</div>
+
+<style>
+  #p3-staleness-curves {
+    color: var(--foreground);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    width: 100%;
+  }
+  #p3-staleness-curves h3 {
+    font-size: 16px;
+    font-weight: 650;
+    margin: 0 0 8px;
+  }
+  #p3-staleness-curves .series-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    margin: 0 0 8px 64px;
+  }
+  #p3-staleness-curves button {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    color: var(--foreground);
+    cursor: pointer;
+    display: inline-flex;
+    font: inherit;
+    font-size: 12px;
+    gap: 5px;
+    padding: 2px 0;
+  }
+  #p3-staleness-curves button[aria-pressed="false"] {
+    opacity: 0.42;
+  }
+  #p3-staleness-curves .swatch {
+    height: 3px;
+    width: 16px;
+  }
+  #p3-staleness-curves .plot-wrap {
+    min-height: 350px;
+    position: relative;
+    width: 100%;
+  }
+  #p3-staleness-curves svg {
+    display: block;
+    min-height: 350px;
+    overflow: visible;
+    width: 100%;
+  }
+  #p3-staleness-curves text {
+    fill: var(--foreground);
+    font-size: 12px;
+  }
+  #p3-staleness-curves .axis path,
+  #p3-staleness-curves .axis line {
+    stroke: var(--border);
+  }
+  #p3-staleness-curves .grid line {
+    stroke: var(--border);
+    stroke-opacity: 0.55;
+  }
+  #p3-staleness-curves .grid path {
+    display: none;
+  }
+  #p3-staleness-curves .tooltip {
+    background: var(--popover);
+    border: 1px solid var(--border);
+    color: var(--popover-foreground);
+    font-size: 12px;
+    line-height: 1.45;
+    max-width: 210px;
+    padding: 7px 9px;
+    pointer-events: none;
+    position: absolute;
+    z-index: 4;
+  }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script>
+(() => {
+  const root = document.getElementById("p3-staleness-curves");
+  const plotWrap = root.querySelector(".plot-wrap");
+  const svg = d3.select(root.querySelector("svg"));
+  const tooltip = root.querySelector(".tooltip");
+  const controls = root.querySelector(".series-controls");
+  const series = [
+    {name: "P1 content", color: "var(--viz-series-1)", values: [83.3,79.2,79.2,75.0,87.5,75.0,75.0,75.0,83.3,87.5,83.3,83.3,83.3,83.3,83.3,79.2]},
+    {name: "P3 rationale", color: "var(--viz-series-2)", values: [91.7,87.5,79.2,91.7,95.8,79.2,83.3,87.5,83.3,83.3,75.0,79.2,75.0,75.0,79.2,75.0]},
+    {name: "P4 task + trajectory", color: "var(--viz-series-3)", values: [75.0,62.5,58.3,54.2,66.7,62.5,66.7,66.7,70.8,79.2,83.3,75.0,87.5,62.5,66.7,66.7]},
+    {name: "P1-pad irrelevant", color: "var(--viz-series-4)", values: [87.5,79.2,79.2,83.3,87.5,75.0,75.0,75.0,75.0,79.2,75.0,83.3,83.3,79.2,87.5,75.0]}
+  ].map((item) => ({...item, visible: true, points: item.values.map((value, index) => ({k: index + 1, value}))}));
+
+  series.forEach((item) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.setAttribute("aria-pressed", "true");
+    button.innerHTML = `<span class="swatch" style="background:${item.color}"></span>${item.name}`;
+    button.addEventListener("click", () => {
+      item.visible = !item.visible;
+      button.setAttribute("aria-pressed", String(item.visible));
+      draw();
+    });
+    controls.appendChild(button);
+  });
+
+  function draw() {
+    const width = Math.max(320, Math.floor(plotWrap.getBoundingClientRect().width));
+    const height = 350;
+    const margin = {top: 12, right: 18, bottom: 52, left: 64};
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+    const visible = series.filter((item) => item.visible);
+    const allValues = visible.flatMap((item) => item.points.map((point) => point.value));
+    const extent = d3.extent(allValues.length ? allValues : [50, 100]);
+    const padding = Math.max(4, (extent[1] - extent[0]) * 0.12);
+    const yDomain = [Math.max(0, extent[0] - padding), Math.min(100, extent[1] + padding)];
+    const x = d3.scaleLinear().domain([1, 16]).range([0, innerWidth]);
+    const y = d3.scaleLinear().domain(yDomain).nice().range([innerHeight, 0]);
+
+    svg.attr("viewBox", `0 0 ${width} ${height}`);
+    svg.selectAll("g.chart-root").remove();
+    const chart = svg.append("g").attr("class", "chart-root").attr("transform", `translate(${margin.left},${margin.top})`);
+    chart.append("rect")
+      .attr("data-chart-frame", "")
+      .attr("width", innerWidth)
+      .attr("height", innerHeight)
+      .attr("fill", "none")
+      .attr("stroke", "var(--border)");
+    chart.append("g")
+      .attr("class", "grid")
+      .call(d3.axisLeft(y).ticks(5).tickSize(-innerWidth).tickFormat(""));
+    const xTickCount = width <= 420 ? 4 : 8;
+    chart.append("g")
+      .attr("class", "axis")
+      .attr("transform", `translate(0,${innerHeight})`)
+      .call(d3.axisBottom(x).ticks(xTickCount).tickFormat(d3.format("d")));
+    chart.append("g")
+      .attr("class", "axis")
+      .call(d3.axisLeft(y).ticks(5).tickFormat((value) => `${value}%`));
+    chart.append("text")
+      .attr("class", "axis-title")
+      .attr("data-axis", "x")
+      .attr("x", innerWidth / 2)
+      .attr("y", innerHeight + 42)
+      .attr("text-anchor", "middle")
+      .text("Edit-distance staleness k (writes)");
+    chart.append("text")
+      .attr("class", "axis-title")
+      .attr("data-axis", "y")
+      .attr("transform", "rotate(-90)")
+      .attr("x", -innerHeight / 2)
+      .attr("y", -48)
+      .attr("text-anchor", "middle")
+      .text("Recovery success (%)");
+
+    const line = d3.line().x((point) => x(point.k)).y((point) => y(point.value));
+    visible.forEach((item) => {
+      chart.append("path")
+        .datum(item.points)
+        .attr("fill", "none")
+        .attr("stroke", item.color)
+        .attr("stroke-width", item.name.startsWith("P3") ? 3 : 2)
+        .attr("d", line);
+      chart.append("g").selectAll("circle")
+        .data(item.points)
+        .enter()
+        .append("circle")
+        .attr("cx", (point) => x(point.k))
+        .attr("cy", (point) => y(point.value))
+        .attr("r", 3)
+        .attr("fill", item.color);
+    });
+
+    const guide = chart.append("line")
+      .attr("data-chart-hover-guide", "")
+      .attr("y1", 0)
+      .attr("y2", innerHeight)
+      .attr("stroke", "var(--foreground)")
+      .attr("stroke-opacity", 0.35)
+      .attr("visibility", "hidden");
+    const hoverMarkers = visible.map((item) => chart.append("circle")
+      .attr("data-chart-hover-marker", "")
+      .attr("r", 5)
+      .attr("fill", item.color)
+      .attr("stroke", "var(--popover)")
+      .attr("stroke-width", 2)
+      .attr("visibility", "hidden"));
+    let pinned = false;
+    chart.append("rect")
+      .attr("data-chart-hit", "")
+      .attr("data-chart-hover-overlay", "cross-series")
+      .attr("width", innerWidth)
+      .attr("height", innerHeight)
+      .attr("fill", "transparent")
+      .style("pointer-events", "all")
+      .on("pointermove", (event) => {
+        const [pointerX] = d3.pointer(event);
+        const continuousK = Math.max(1, Math.min(16, x.invert(pointerX)));
+        const nearestK = visible.length
+          ? visible[0].points[d3.bisector((point) => point.k).center(visible[0].points, continuousK)].k
+          : Math.round(continuousK);
+        const guideX = x(continuousK);
+        guide.attr("x1", guideX).attr("x2", guideX).attr("visibility", "visible");
+        const rows = visible.map((item, index) => {
+          const lowerK = Math.floor(continuousK);
+          const left = item.points[lowerK - 1];
+          const right = item.points[Math.min(lowerK, item.points.length - 1)];
+          const value = d3.interpolateNumber(left.value, right.value)(continuousK - lowerK);
+          hoverMarkers[index]
+            .attr("cx", guideX)
+            .attr("cy", y(value))
+            .attr("visibility", "visible");
+          return `<div><span style="color:${item.color}">●</span> ${item.name}: <strong>${value.toFixed(1)}%</strong></div>`;
+        });
+        tooltip.innerHTML = `<strong>k ≈ ${continuousK.toFixed(1)} (nearest ${nearestK})</strong>${rows.join("")}`;
+        tooltip.hidden = false;
+        const left = Math.min(width - 220, Math.max(4, margin.left + guideX + 10));
+        tooltip.style.left = `${left}px`;
+        tooltip.style.top = `${Math.max(4, margin.top + 8)}px`;
+      })
+      .on("pointerdown", () => {
+        pinned = !pinned;
+      })
+      .on("pointerleave", () => {
+        if (pinned) return;
+        guide.attr("visibility", "hidden");
+        hoverMarkers.forEach((marker) => marker.attr("visibility", "hidden"));
+        tooltip.hidden = true;
+      });
+  }
+
+  new ResizeObserver(draw).observe(plotWrap);
+  draw();
+})();
+</script>

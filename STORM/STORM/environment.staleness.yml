@@ -1,0 +1,5 @@
+name: storm-staleness
+channels:
+  - defaults
+dependencies:
+  - python=3.12
