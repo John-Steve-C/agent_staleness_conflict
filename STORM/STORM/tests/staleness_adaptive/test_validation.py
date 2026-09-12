@@ -1,7 +1,8 @@
 import unittest
+from dataclasses import replace
 
 from staleness_adaptive.crossover_experiment import build_crossover_episodes
-from staleness_adaptive.validation import validate_revision
+from staleness_adaptive.validation import validate_dependencies, validate_revision
 
 
 VALID_REVISIONS = {
@@ -82,6 +83,45 @@ class ValidationTests(unittest.TestCase):
         episode = build_crossover_episodes((1,))[0]
 
         self.assertFalse(validate_revision(episode, VALID_REVISIONS["normalization"]))
+
+    def test_dependency_checks_distinguish_adaptation_from_escalation(self):
+        episodes = {
+            item.episode_id: item for item in build_crossover_episodes((1, 4))
+        }
+
+        self.assertTrue(
+            validate_dependencies(
+                episodes["normalization-k1"],
+                episodes["normalization-k1"].current_content,
+            )
+        )
+        self.assertFalse(
+            validate_dependencies(
+                episodes["authorization-k4"],
+                episodes["authorization-k4"].current_content,
+            )
+        )
+
+    def test_custom_behavior_and_dependency_checks(self):
+        episode = replace(
+            build_crossover_episodes((1,))[0],
+            metadata={
+                "protected_assignments": {},
+                "validator": "custom",
+                "behavior_check": "assert transform(2) == 4",
+                "dependency_check": "assert transform(0) >= 0",
+            },
+        )
+
+        self.assertTrue(
+            validate_revision(episode, "def transform(value):\n    return value * 2\n")
+        )
+        self.assertFalse(
+            validate_revision(episode, "def transform(value):\n    return value\n")
+        )
+        self.assertFalse(
+            validate_dependencies(episode, "def transform(value):\n    return -1\n")
+        )
 
 
 if __name__ == "__main__":

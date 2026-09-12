@@ -1,0 +1,19 @@
+{
+  "adjudication_sample_count": 30,
+  "available_blob_resolution_evidence": {
+    "absent_all": 2222,
+    "exact_base": 99,
+    "exact_head": 7879,
+    "manual_or_combined": 132,
+    "unchanged_sides": 16
+  },
+  "available_conflict_file_count": 10348,
+  "available_merged_pr_count": 53,
+  "available_repository_count": 16,
+  "conflict_file_count": 10359,
+  "merged_pr_count": 55,
+  "repository_count": 17,
+  "unavailable_repositories": [
+    "ignazio-ingenito/baialupo.com"
+  ]
+}

@@ -3,7 +3,7 @@
 **Internal planning and pilot-decision document — v4**
 Revised 2026-09-11 · Horizon: ~3 months · Status: Stage-C pilot re-analysed; instrument rebuild required before any confirmatory claim
 
-> **What changed in v4.** A re-analysis of the same Stage-C artifact overturns the v3 reading of its own result. `correct_action` is not held constant across the staleness knob — k1–2 is a pure-`adapt` corpus, k≥8 is a frozen 2/4/2 mix — so the reported P3−P1 band reversal is a composition artifact and **H1, H2 and H3 were never actually tested**. Every payload carrying any content scores 100% on `abandon`, so 38% of the corpus contributes no discrimination while absorbing 38% of the weight in each headline number. Of eight scenario families, five sit at ceiling and one at floor, leaving an episode-clustered MDE north of 20 points. Split by action, P2 — reported as tied with P1 — is **+30.6 points on `escalate` and −10.4 on `adapt`**, which is H5's mechanism claim showing up under a payload H5 was never tested with. Receiver contexts run 222–864 tokens, so the payload is 22% of the whole prompt against <1% in a live run. The proposal therefore changes from "test the observed reversal on a natural corpus" to **"rebuild the instrument, then test context length and deference rather than staleness."** Sections 4, 5.2, 5.3b, 7.2 and 10 carry the change.
+> **What changed in v4.** A re-analysis of the same Stage-C artifact overturns the v3 reading of its own result. `correct_action` is not held constant across the staleness knob — k1–2 is a pure-`adapt` corpus, k≥8 is a frozen 2/4/2 mix — so the reported P3−P1 band reversal is a composition artifact and **H1, H2 and H3 were never actually tested**. Every payload carrying any content scores 100% on `abandon`, so 38% of the corpus contributes no discrimination while absorbing 38% of the weight in each headline number. Of eight scenario families, six sit at ceiling in the adapt stratum, leaving a family-clustered MDE north of 20 points. Split by action, P2 — reported as tied with P1 — is **+30.6 points on `escalate` and −13.3 on `adapt`**, which is H5's mechanism claim showing up under a payload H5 was never tested with. Receiver contexts run 222–864 tokens, so the payload is 22% of the whole prompt against <1% in a live run. The proposal therefore changes from "test the observed reversal on a natural corpus" to **"rebuild the instrument, then test context length and deference rather than staleness."** Sections 4, 5.2, 5.3b, 7.2 and 10 carry the change.
 
 > **What changed in v3.** The corrected Stage-C experiment is now complete: 8 controlled scenario families × 16 staleness levels × 9 strategies × 3 seeds, using local Qwen3.5-35B-A3B (3,456 recovery continuations). The earlier 100% P3 result is withdrawn because the synthetic winner rationale leaked the ground-truth recovery action and the old substring scorer could be satisfied by comments. The replacement run uses action-free rationales, behavioral validators, protected concurrent-write markers, pre/post-run leakage audits, and episode-clustered inference. It finds no reliable P3-over-P1 crossover and shows that policy-predicted P5 is limited by routing accuracy. The proposal is therefore changed from “build the adaptive protocol after a positive pilot” to “test the observed reversal and routing mechanism on a natural, held-out refusal corpus before making a deployment claim.”
 
@@ -13,7 +13,7 @@ Revised 2026-09-11 · Horizon: ~3 months · Status: Stage-C pilot re-analysed; i
 
 ## 1. One-paragraph version
 
-When multiple LLM agents edit one repository concurrently, a write is refused whenever the writer's view of the code has gone stale. Two systems ship hand-designed refusal payloads — STORM sends content plus a diff plus a stale-dependency list; ATM sends a structured verdict envelope with a refinement hint — and neither design has been adequately ablated. Our controlled pilot returned a null on all six hypotheses, and re-analysis shows that most of that null is an instrument artifact rather than a finding: the staleness manipulation is confounded with the outcome label, 38% of the corpus is saturated at 100% for every informative payload, and eight scenario families leave a minimum detectable effect above 20 points. What does survive is sharper than the original hypothesis. Split by correct action, a one-sentence declared intent (P2) is **+30.6 points on `escalate` and −10.4 on `adapt`** against the STORM baseline, so payload value is action-conditional rather than staleness-conditional. And the receiving agent shows a consistent deference bias: under P1 it adapts on 56 of 72 episodes where it should push back, and under P5 it obeys a wrong directive often enough that 160 of 261 true-`adapt` episodes end in abandonment. The next study therefore rebuilds the instrument to a calibrated, action-crossed corpus and tests two conditioning variables the pilot held constant — **receiver context length** and **the falsifiability of a directive** — with an adaptive protocol as a conditional deliverable rather than an assumed one.
+When multiple LLM agents edit one repository concurrently, a write is refused whenever the writer's view of the code has gone stale. Two systems ship hand-designed refusal payloads — STORM sends content plus a diff plus a stale-dependency list; ATM sends a structured verdict envelope with a refinement hint — and neither design has been adequately ablated. Our controlled pilot returned a null on all six hypotheses, and re-analysis shows that most of that null is an instrument artifact rather than a finding: the staleness manipulation is confounded with the outcome label, 38% of the corpus is saturated at 100% for every informative payload, and eight scenario families leave a minimum detectable effect above 20 points. What does survive is sharper than the original hypothesis. Split by correct action, a one-sentence declared intent (P2) is **+30.6 points on `escalate` and −13.3 on `adapt`** against the STORM baseline, so payload value is action-conditional rather than staleness-conditional. And the receiving agent shows a consistent deference bias: under P1 it adapts on 56 of 72 episodes where it should push back; under P5, the router points to `abandon` on 108 of 165 true-`adapt` continuations and the receiver follows it 90 times. The next study therefore rebuilds the instrument to a calibrated, action-crossed corpus and tests two conditioning variables the pilot held constant — **receiver context length** and **the falsifiability of a directive** — with an adaptive protocol as a conditional deliverable rather than an assumed one.
 
 ---
 
@@ -71,8 +71,8 @@ That ATM exists is good news, not bad. It is a governance and feasibility paper 
 | **H2** | **(core)** The advantage of intent- and reasoning-bearing payloads over content-only increases with staleness. There is a threshold τ\* below which content-only is statistically indistinguishable at lower cost, and above which richer payloads win. | **Not tested.** The reported band reversal (+8.3 at k1–4, −6.2 at k13–16) is reproduced exactly by re-weighting three action cells of differing payload sensitivity. With 8 family clusters the MDE exceeds 20 points, so the null is uninformative. Carries forward to the rebuilt corpus, demoted from core. |
 | **H3** | The high-staleness advantage survives a length-matched padded control. | **Premise still not met**, but P1-pad is informative in its own right: 91.5% on `adapt` (tied with P3) and 12.5% on `escalate` (worse than P1's 22.2%). Token volume neither explains P3's adapt performance nor substitutes for intent on escalate. |
 | **H4** | Investment staleness predicts recovery cost better than temporal staleness. | **Still untested.** Now competes against contradiction load (§5.3b), which is predicted to dominate all four because k only matters through it. |
-| **H5** | **(mechanism)** Intent/rationale-payload benefit concentrates in episodes where the correct action is *abandon* or *escalate*, not *adapt*. | **Tested with the wrong payload; supported by P2.** P3−P1 was 0.0/+1.8/+4.2 and recorded as not established. P2−P1 is **−10.4 on `adapt` and +30.6 on `escalate`**. Declared intent buys willingness to push back and costs adaptation fidelity. Rests on one family (`authorization`), so it is a lead to power, not a result. |
-| **H6** | **(directive test)** A route predicted from observable episode state (P5) matches or beats P3 at high staleness for fewer end-to-end tokens. | **Rejected for the current router**, and the failure mode is now characterized: the router collapses to a single class, predicting `abandon` for 192 of 261 true-`adapt` episodes, and the recovery agent follows it into 160 abandonments. The bottleneck is routing *and* the receiver's uncritical compliance with it. |
+| **H5** | **(mechanism)** Intent/rationale-payload benefit concentrates in episodes where the correct action is *abandon* or *escalate*, not *adapt*. | **Tested with the wrong payload; supported by P2.** P3−P1 was 0.0/+1.8/+4.2 and recorded as not established. P2−P1 is **−13.3 on `adapt` and +30.6 on `escalate`**. Declared intent buys willingness to push back and costs adaptation fidelity. Rests on one family (`authorization`), so it is a lead to power, not a result. |
+| **H6** | **(directive test)** A route predicted from observable episode state (P5) matches or beats P3 at high staleness for fewer end-to-end tokens. | **Rejected for the current router**, and the failure mode is now characterized: the router predicts `abandon` for 108 of 165 true-`adapt` continuations, and the recovery agent follows it into 90 abandonments. The bottleneck is routing *and* the receiver's uncritical compliance with it. |
 | **H7** | **(new, core)** The conditioning variable is the **signal ratio** `payload_tokens / context_tokens`, not k. Rich payloads lose their advantage and then invert as receiver context grows; τ\* is measured in context tokens. | **Untested — Stage C held it constant.** Prompts ran 222–864 tokens, putting P1 at 22% of the whole context against <1% in a live run. P4's −12.0 points at a 29% ratio is dilution already biting at miniature scale. Primary target of Study S1. |
 | **H8** | **(new, mechanism)** A directive carrying **falsifiable grounds** is no better than a bare directive when it is right, and materially better when it is wrong, because grounds let the receiver detect the contradiction. | **Untested.** Current P5 succeeds in 94.7% of correctly routed and 16.4% of misrouted cases; H8 predicts grounding lifts the second number without moving the first. Primary target of Study S2. |
 | **H9** | **(new, systems)** An execution-grounded router — running A's behavioural check and A's dependent tests against B's content — beats a predictive router on accuracy and on end-to-end tokens. | **Untested.** Reframes RQ5 from information-versus-direction to **prediction versus verification**, which is the question a code setting is uniquely able to answer. |
@@ -169,7 +169,7 @@ A naive grid — ten payloads × four levels × seeds, each a full multi-agent r
 
 ### 5.7 Statistical plan
 
-The inference unit is the **episode**, not the continuation seed. Seeds remain nested within episode clusters. Report paired payload-minus-P1 differences using episode-clustered bootstrap intervals and episode-clustered sign-randomization p-values. Do not treat the three seeds as three independent episodes.
+The inference unit is the **episode**, not the continuation seed. Seeds are averaged within episodes, and episode outcomes are clustered on scenario family. Report paired payload-minus-P1 differences using family-clustered bootstrap intervals and family-clustered sign-randomization p-values. Do not treat the three seeds as three independent episodes.
 
 For the larger natural corpus, use within-episode paired mixed-effects models:
 
@@ -180,7 +180,7 @@ recovery_cost    ~ payload * staleness + (1 | episode) + (1 | repo)      # linea
 
 H2 is the **payload × staleness interaction term**, pre-registered before the natural-corpus grid. Any τ\* selected on the development corpus must be evaluated on held-out episodes; a threshold optimized and reported on the same corpus is exploratory only. H4 compares model fit across staleness operationalizations. H6 is a planned contrast between **policy-predicted** P5 and P3 at high staleness, with end-to-end token cost including the P5 routing call. P5-oracle is reported separately as an upper bound.
 
-**Power is now a pre-registered deliverable, not an assumption.** Stage C's nominal 128 episodes were 8 scenario families × 16 staleness levels; with episode-clustered inference the effective cluster count was 8, and 2 for the `escalate` cell. The minimum detectable effect was therefore above 20 points — larger than any effect the design was built to find, which is why its null is uninformative. Every subsequent run states its MDE before execution, computed from Stage C's observed between-family variance, and reports the realised cluster count per action cell alongside every contrast.
+**Power is now a pre-registered deliverable, not an assumption.** Stage C's nominal 128 episodes were 8 scenario families × 16 staleness levels; with family-clustered inference the effective cluster count was 8, and 2 for the `escalate` cell. The action-level planning MDE is 37.3 points for `adapt` and 57.5 for `escalate`; it is not empirically estimable for the saturated `abandon` baseline. These are larger than any effect the design was built to find, which is why its null is uninformative. Every subsequent run states its MDE before execution, computed from Stage C's observed between-family variance, and reports the realised cluster count per action cell alongside every contrast.
 
 With ~30 calibrated families crossed over three actions, a 10-percentage-point paired difference becomes detectable. Retiring the saturated `abandon` variants recovers a further 38% of effective weight that Stage C spent on cells where every informative payload ties at 100%.
 
@@ -270,7 +270,37 @@ The earlier P0-vs-P3 gate was not diagnostic of H2: P0 is an information-deprive
 
 > **Gate C′.** ≥10 family clusters per action cell, and ≥60% of admitted items landing in the 40–70% P1 band. Below either, the corpus is not an instrument and no payload contrast is run on it.
 
+> **First Gate C′ attempt (2026-09-11): FAIL.** A mechanically audited set of 38
+> families fully crossed `adapt` / `abandon` / `escalate` at k=8 and was piloted
+> under P1 for 10 seeds at exactly 8k receiver-trajectory tokens (1,140
+> continuations). There were 59 malformed/truncated JSON responses; the strict
+> ledger excludes any affected item rather than counting malformed output as an
+> ordinary model failure. Only 10 items were admitted; family clusters by action
+> were `adapt=1`, `abandon=1`, `escalate=8`. Although 80.0% of admitted items
+> landed in the 40–70% band, the ≥10-per-action requirement failed. Accordingly, Study
+> S1 was not run. Artifacts and the item-level exclusion ledger are in
+> `corpus_rebuild/p1_qwen35_8k_20260911_r1/`.
+
+> **Held-out Gate C′ attempt (2026-09-11): FAIL.** The receiver-trajectory
+> renderer was first corrected so task and pending-edit content appears once and
+> only neutral tool history fills the requested context. Revision r4 was frozen
+> after seeds 0–2 and evaluated once on held-out seeds 10–19: 1,140/1,140 valid
+> continuations at exactly 8k tokens. It admitted 21 items, with 76.2% in the
+> 40–70% band, but clusters were `adapt=9`, `abandon=2`, `escalate=10`. The
+> action-cell threshold still fails, so no S1 payload contrast was run. Artifacts
+> are in `corpus_rebuild/p1_qwen35_8k_20260911_r4_heldout/`; those responses must
+> not become another development set.
+
 **Weeks 1–4 · Study S3 — RecoveryRoute-Bench on AgenticFlict.** *No GPU; fully parallel.* Mine PR resolutions across the 336,380 conflict regions into `abandon` / `adapt` / `escalate` labels — losing change dropped, rewritten onto the new base, or reverted and contested. Fit the §5.8 feature set; report the achievable routing-accuracy ceiling, a feature-group ablation and a human upper bound on a hand-labelled subset.
+
+> **S3 reconstruction checkpoint (2026-09-11).** Repository histories are
+> available for 53/55 merged conflicting PRs (16/17 repos; 10,348/10,359 file
+> records), and every referenced base/head/merge commit in those repositories was
+> recovered. The resolved tree is exact-base for 99 records, exact-head for 7,879,
+> manual/combined for 132, unchanged for 16, and absent on all three sides for
+> 2,222. These are provenance signals, not route outcomes. A balanced 30-item
+> adjudication sheet is ready in `recovery_route_bench/`; Gate S3 and model fitting
+> remain pending independent labels from resolved diffs plus PR discussion/reverts.
 
 > **Gate S3.** If the ceiling falls below the ~82.5% break-even, predictive directive routing is dead on arrival. Drop P5 as a deployment candidate and redirect the budget to P6 (survivable wrong directives) and P8 (verification).
 
@@ -287,7 +317,7 @@ The earlier P0-vs-P3 gate was not diagnostic of H2: P0 is an information-deprive
 | Finding | Corrected local-Qwen result | Interpretation |
 |---|---:|---|
 | P3 vs P1 | 82.6% vs 81.0%; +1.6 points [−2.6, +5.7], p=0.510 | No reliable overall reasoning-rationale benefit. |
-| P3−P1 by k band | +8.3 (k1–4), +8.3 (k5–8), −4.2 (k9–12), −6.2 points (k13–16) | Descriptive reversal, not a confirmed crossover; band cells contain few episode clusters. |
+| P3−P1 by k band | +8.3 (k1–4), +8.3 (k5–8), −4.2 (k9–12), −6.2 points (k13–16) | Descriptive reversal, not a confirmed crossover; band cells contain few family clusters. |
 | P1-pad vs P1 | 79.9% vs 81.0% | Matching P3's length does not produce its small observed gain. |
 | P4 vs P1 | 69.0% vs 81.0%; −12.0 points [−17.7, −6.8], p=0.0001 | Extra trajectory context can actively hurt; “richness” is not a scalar. |
 | P5 vs P3 | 62.2% vs 82.6% | The current predicted directive is not competitive. |
@@ -327,23 +357,23 @@ Low k is a pure-`adapt` corpus and high k is half-`abandon`, so the reported P3�
 | Payload | adapt | abandon | escalate |
 |---|---:|---:|---:|
 | P0 | 0.0% | 0.0% | 0.0% |
-| P1 | 86.8% | **100.0%** | 22.2% |
+| P1 | 89.7% | **100.0%** | 22.2% |
 | P2 | 76.4% | **100.0%** | **52.8%** |
 | P3 | 91.5% | **100.0%** | 26.4% |
 | P4 | 62.4% | **100.0%** | 20.8% |
 | P1-pad | 91.5% | **100.0%** | 12.5% |
-| P5 | 23.4% | **100.0%** | 65.3% |
+| P5 | 27.3% | **100.0%** | 65.3% |
 | P5-oracle | 97.0% | 100.0% | 100.0% |
 
 Every payload carrying any content ties at 100% on `abandon` — 49 of 128 episodes contributing no discrimination while absorbing 38% of the weight in each headline number. The live cell is `escalate`, which is also the smallest at 24 episodes from two families.
 
-**3 · The effect the aggregate hid.** P2 was reported as tied with P1 at 81.0%. Split by action it trades: **escalate 22.2% → 52.8% (+30.6), adapt 86.8% → 76.4% (−10.4)**. That is H5's mechanism claim under a payload H5 was not tested with. The caveat is severe — `escalate` exists only in `authorization` and `transaction`, and `transaction` is 0/33 for every non-P5 strategy, so the entire signal is `authorization` (P1 16/39, P2 38/39, P3 19/39, P1-pad 9/39). One cluster. A lead to power, not a result.
+**3 · The effect the aggregate hid.** P2 was reported as tied with P1 at 81.0%. Split by action it trades: **escalate 22.2% → 52.8% (+30.6), adapt 89.7% → 76.4% (−13.3)**. That is H5's mechanism claim under a payload H5 was not tested with. The caveat is severe — `escalate` exists only in `authorization` and `transaction`, and `transaction` is 0/33 for every non-P5 strategy, so the entire signal is `authorization` (P1 16/39, P2 38/39, P3 19/39, P1-pad 9/39). One cluster. A lead to power, not a result.
 
-**4 · Most items have no discriminative power.** At P1: `deduplication` 57/57, `pagination` 57/57, `formatting` 21/21, `normalization` 18/18, `cache` 12/12 on adapt — five ceiling families; `transaction`-escalate at floor for everything. Roughly one and a half of eight families carry the variance, which is what puts the MDE above 20 points.
+**4 · Most items have no discriminative power.** At P1 within the adapt stratum: `deduplication` 48/48, `pagination` 48/48, `serialization` 18/18, `formatting` 12/12, `normalization` 9/9, and `cache` 6/6 — six ceiling families; `transaction`-escalate is 0/33 for every non-P5 strategy. Roughly two of eight families carry the adapt variance, which is what puts the action-level MDE above 20 points.
 
 **5 · Context scale is wrong by ~40×.** Prompts ran 222–864 tokens (median 581) with a 126-token P1 payload — 22% of the whole context, against under 1% in a live run. See §5.3b.
 
-**6 · What survives: deference.** Under P1, on episodes whose correct action was `escalate`, the model chose `adapt` **56 of 72 times**; under P5-oracle it escalated 72/72, so this is disposition, not capability. Under P5 the router predicted `abandon` for 192 of 261 true-`adapt` episodes and the recovery agent abandoned **160** of them — discarding work P1 recovered 87% of the time. One bias, two manifestations: the receiving agent's prior is that the other agent is right.
+**6 · What survives: deference.** Under P1, on episodes whose correct action was `escalate`, the model chose `adapt` **56 of 72 times**; under P5-oracle it escalated 72/72, so this is disposition, not capability. Under P5 the router predicted `abandon` for 108 of 165 true-`adapt` continuations and the recovery agent abandoned **90** of them — discarding work P1 recovered 89.7% of the time. One bias, two manifestations: the receiving agent's prior is that the other agent is right.
 
 ### 7.3 Immediate re-analysis actions
 

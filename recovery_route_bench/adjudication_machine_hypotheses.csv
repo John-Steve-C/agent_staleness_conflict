@@ -1,0 +1,31 @@
+adjudication_id,resolution_evidence,machine_route_hypothesis,machine_rationale
+S3-001,exact_base,abandon,The agent-head file state was dropped in favor of the simulated base.
+S3-002,exact_base,abandon,The agent-head file state was dropped in favor of the simulated base.
+S3-003,exact_base,abandon,The agent-head file state was dropped in favor of the simulated base.
+S3-004,exact_base,abandon,The agent-head file state was dropped in favor of the simulated base.
+S3-005,exact_base,abandon,The agent-head file state was dropped in favor of the simulated base.
+S3-006,exact_base,abandon,The agent-head file state was dropped in favor of the simulated base.
+S3-007,exact_base,abandon,The agent-head file state was dropped in favor of the simulated base.
+S3-008,exact_base,abandon,The agent-head file state was dropped in favor of the simulated base.
+S3-009,exact_base,abandon,The agent-head file state was dropped in favor of the simulated base.
+S3-010,exact_base,abandon,The agent-head file state was dropped in favor of the simulated base.
+S3-011,manual_or_combined,adapt,The resolved file differs from both conflicting sides.
+S3-012,manual_or_combined,adapt,The resolved file differs from both conflicting sides.
+S3-013,manual_or_combined,adapt,The resolved file differs from both conflicting sides.
+S3-014,manual_or_combined,adapt,The resolved file differs from both conflicting sides.
+S3-015,manual_or_combined,adapt,The resolved file differs from both conflicting sides.
+S3-016,manual_or_combined,adapt,The resolved file differs from both conflicting sides.
+S3-017,manual_or_combined,adapt,The resolved file differs from both conflicting sides.
+S3-018,manual_or_combined,adapt,The resolved file differs from both conflicting sides.
+S3-019,manual_or_combined,adapt,The resolved file differs from both conflicting sides.
+S3-020,manual_or_combined,adapt,The resolved file differs from both conflicting sides.
+S3-021,exact_head,escalate,The agent-head file state prevailed over the simulated base.
+S3-022,exact_head,escalate,The agent-head file state prevailed over the simulated base.
+S3-023,exact_head,escalate,The agent-head file state prevailed over the simulated base.
+S3-024,exact_head,escalate,The agent-head file state prevailed over the simulated base.
+S3-025,exact_head,escalate,The agent-head file state prevailed over the simulated base.
+S3-026,exact_head,escalate,The agent-head file state prevailed over the simulated base.
+S3-027,exact_head,escalate,The agent-head file state prevailed over the simulated base.
+S3-028,exact_head,escalate,The agent-head file state prevailed over the simulated base.
+S3-029,exact_head,escalate,The agent-head file state prevailed over the simulated base.
+S3-030,exact_head,escalate,The agent-head file state prevailed over the simulated base.

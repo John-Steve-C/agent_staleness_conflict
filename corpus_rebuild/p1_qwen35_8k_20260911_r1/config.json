@@ -1,0 +1,44 @@
+{
+  "admission_band": [
+    0.3,
+    0.7
+  ],
+  "candidate_structure": {
+    "action_staleness_fully_crossed": true,
+    "candidate_episode_count": 114,
+    "candidate_family_count": 38,
+    "missing_crossed_cell_count": 0,
+    "missing_crossed_cells": [],
+    "staleness_levels": [
+      8
+    ]
+  },
+  "condition": "P1",
+  "created_at": "2026-09-11T06:54:50.293419+00:00",
+  "endpoint": "http://127.0.0.1:8102/v1",
+  "gate_band": [
+    0.4,
+    0.7
+  ],
+  "max_tokens": 700,
+  "model": "qwen3.5-35b-a3b",
+  "planned_effect": 0.1,
+  "receiver_context_tokens": 8000,
+  "refusal_position": "tail",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "temperature": 0.4,
+  "tokenizer_path": "/shared/models/hf/Qwen3.5-35B-A3B/tokenizer.json",
+  "top_p": 0.8,
+  "workers": 8
+}

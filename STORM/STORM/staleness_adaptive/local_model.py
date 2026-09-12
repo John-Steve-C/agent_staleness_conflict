@@ -19,7 +19,8 @@ means the winning edit already fulfills your task. `escalate` means the edits di
 contract or invariant requiring manager review. `queue` waits for unfinished work; `serialize`
 requests exclusive follow-up. Do not infer private facts that the payload does not contain.
 Return one JSON object with keys action, revised_content, and explanation. revised_content must be
-the complete file for adapt and an empty string for every other action."""
+the complete file for adapt and an empty string for every other action. Keep explanation to one
+sentence under 40 words and do not emit any other keys."""
 
 
 POLICY_SYSTEM_PROMPT = """You are the routing policy for a rejected write in an asynchronous
@@ -55,11 +56,19 @@ def _valid_revised_content(episode: ConflictEpisode, content: str) -> bool:
 
 
 def build_recovery_user_prompt(episode: ConflictEpisode, payload: Payload) -> str:
-    return (
+    prefix = (
         f"Your assigned task:\n{episode.metadata.get('losing_agent_task', '')}\n\n"
         f"Your rejected proposed full file:\n```python\n{episode.proposed_content}\n```\n\n"
-        f"Refusal payload ({payload.selected_condition.value}):\n{payload.text}"
     )
+    if payload.refusal_position is None:
+        return f"{prefix}Refusal payload ({payload.selected_condition.value}):\n{payload.text}"
+    pieces = [prefix, "Receiver's own trajectory:\n"]
+    if payload.receiver_trajectory_before:
+        pieces.append(f"{payload.receiver_trajectory_before}\n\n")
+    pieces.append(f"Refusal payload ({payload.selected_condition.value}):\n{payload.text}\n\n")
+    if payload.receiver_trajectory_after:
+        pieces.append(payload.receiver_trajectory_after)
+    return "".join(pieces).rstrip()
 
 
 @dataclass

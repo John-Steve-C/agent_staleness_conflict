@@ -24,6 +24,11 @@ PADDING_TEXT = (
     "repository setup packaging changelog documentation license fixtures examples "
     "release automation formatting configuration unrelated helper module"
 )
+CASE_STUDY_CONDITIONS = tuple(
+    condition
+    for condition in PayloadCondition
+    if condition not in {PayloadCondition.P6, PayloadCondition.P7, PayloadCondition.P8}
+)
 
 
 class ControlledRecoveryBackend:
@@ -35,6 +40,8 @@ class ControlledRecoveryBackend:
         PayloadCondition.P4,
         PayloadCondition.P5,
         PayloadCondition.P5_ORACLE,
+        PayloadCondition.P6,
+        PayloadCondition.P8,
     }
 
     def recover(
@@ -435,9 +442,8 @@ def run_case_studies(output_dir: Path) -> list[ReplayResult]:
     output_dir.mkdir(parents=True, exist_ok=True)
     episodes = build_controlled_episodes()
     EpisodeLog(output_dir / "episodes.jsonl").write(episodes)
-    conditions = list(PayloadCondition)
     results = ReplayRunner(ControlledRecoveryBackend()).run_matrix(
-        episodes, conditions
+        episodes, CASE_STUDY_CONDITIONS
     )
     _write_results(output_dir / "replay_results.csv", results)
     summary = _summaries(results)

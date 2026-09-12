@@ -1,0 +1,4 @@
+correct_action,n_episode_pairs,n_family_clusters,p1_success_rate,mde_80pct_power,mde_status
+abandon,49,4,1.0,,not_estimable_saturated_baseline
+adapt,55,8,0.896969696969697,0.37260548424350587,fragile_fewer_than_10_clusters
+escalate,24,2,0.2222222222222222,0.5746841473052241,fragile_fewer_than_10_clusters

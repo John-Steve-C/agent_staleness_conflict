@@ -1,0 +1,27 @@
+{
+  "action_staleness_fully_crossed": true,
+  "candidate_episode_count": 90,
+  "candidate_family_count": 30,
+  "leakage_audit": {
+    "behavioral_validators": [
+      "custom"
+    ],
+    "episode_count": 90,
+    "forbidden_prompt_field_count": 0,
+    "forbidden_prompt_fields": {},
+    "oracle_hint_in_p3_count": 0,
+    "oracle_hint_in_p3_episodes": [],
+    "p3_directive_cue_count": 0,
+    "p3_directive_cue_episodes": [],
+    "passed": true,
+    "scorer": "isolated behavioral checks plus protected concurrent assignments"
+  },
+  "mechanical_failure_count": 0,
+  "mechanical_failures": [],
+  "missing_crossed_cell_count": 0,
+  "missing_crossed_cells": [],
+  "passed": true,
+  "staleness_levels": [
+    8
+  ]
+}

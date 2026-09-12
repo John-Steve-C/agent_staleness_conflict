@@ -1,0 +1,24 @@
+{
+  "action_staleness_fully_crossed": true,
+  "admitted_family_clusters_by_action": {
+    "abandon": 2,
+    "adapt": 9,
+    "escalate": 10
+  },
+  "admitted_fraction_in_40_70_band": 0.7619047619047619,
+  "admitted_item_count": 21,
+  "all_pilots_meet_minimum_context": true,
+  "candidate_episode_count": 114,
+  "candidate_family_count": 38,
+  "floor_control_count": 35,
+  "invalid_response_count": 0,
+  "invalid_response_fraction": 0.0,
+  "items_with_invalid_response_count": 0,
+  "minimum_context_tokens": 8000,
+  "missing_crossed_cell_count": 0,
+  "missing_crossed_cells": [],
+  "passed": false,
+  "staleness_levels": [
+    8
+  ]
+}

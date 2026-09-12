@@ -35,6 +35,7 @@ def episode_from_storm_refusal(
     correct_action: RecoveryAction,
     referenced_symbols: set[str] | frozenset[str] = frozenset(),
     changed_symbols: set[str] | frozenset[str] = frozenset(),
+    receiver_trajectory: Iterable[str] = (),
     padding_text: str = "",
 ) -> ConflictEpisode:
     """Convert STORM's WriteResponse-like object into a replayable episode."""
@@ -78,5 +79,6 @@ def episode_from_storm_refusal(
         recommended_action=recommended_action,
         refinement_hint=refinement_hint,
         correct_action=correct_action,
+        receiver_trajectory=tuple(receiver_trajectory),
         padding_text=padding_text,
     )

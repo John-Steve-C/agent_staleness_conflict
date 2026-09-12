@@ -4,6 +4,7 @@ from dataclasses import replace
 
 from staleness_adaptive.crossover_experiment import (
     SCENARIOS,
+    STAGE_C_CONDITIONS,
     audit_p3_leakage,
     build_crossover_episodes,
     parse_staleness_levels,
@@ -59,6 +60,11 @@ class CrossoverExperimentTests(unittest.TestCase):
 
     def test_parses_ranges_and_explicit_staleness_levels(self):
         self.assertEqual(parse_staleness_levels("1-3,8,12"), (1, 2, 3, 8, 12))
+
+    def test_historical_stage_c_conditions_exclude_new_payload_arms(self):
+        self.assertNotIn("P6", {item.value for item in STAGE_C_CONDITIONS})
+        self.assertNotIn("P7", {item.value for item in STAGE_C_CONDITIONS})
+        self.assertNotIn("P8", {item.value for item in STAGE_C_CONDITIONS})
 
 
 if __name__ == "__main__":

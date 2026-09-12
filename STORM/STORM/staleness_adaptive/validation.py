@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ast
+import json
 import subprocess
 import sys
 
@@ -117,6 +118,136 @@ else:
 """
 
 
+_DEPENDENCY_HARNESS = r"""
+import json
+import sys
+
+scenario = sys.argv[1]
+source = sys.stdin.read()
+
+def guarded_import(name, globals=None, locals=None, fromlist=(), level=0):
+    if name != "json" or level:
+        raise ImportError(name)
+    return json
+
+safe_builtins = {
+    "__import__": guarded_import,
+    "dict": dict,
+    "isinstance": isinstance,
+    "list": list,
+    "max": max,
+    "PermissionError": PermissionError,
+    "range": range,
+    "RuntimeError": RuntimeError,
+    "set": set,
+    "str": str,
+    "TypeError": TypeError,
+}
+scope = {"__builtins__": safe_builtins}
+exec(compile(source, "candidate.py", "exec"), scope)
+
+if scenario == "normalization":
+    try:
+        scope["normalize"](3)
+    except TypeError:
+        pass
+    else:
+        raise AssertionError("normalize must reject non-text input")
+elif scenario == "formatting":
+    assert scope["render"]("x", prefix=">") == ">x"
+elif scenario == "cache":
+    assert scope["DEFAULT_TTL"] == 60
+elif scenario == "authorization":
+    class User:
+        scopes = {"read"}
+    user = User()
+    assert scope["authorize"](user, " read ") is True
+    try:
+        scope["authorize"](user, "write")
+    except PermissionError:
+        pass
+    else:
+        raise AssertionError("authorize must enforce scope membership")
+elif scenario == "transaction":
+    class Store:
+        def __init__(self, version):
+            self.version = version
+            self.values = []
+        def write(self, value):
+            self.values.append(value)
+    stale = Store(3)
+    try:
+        scope["commit"](stale, 2, "value")
+    except RuntimeError:
+        pass
+    else:
+        raise AssertionError("commit must reject stale versions")
+    assert stale.values == []
+elif scenario == "serialization":
+    try:
+        scope["dumps"](["a"])
+    except TypeError:
+        pass
+    else:
+        raise AssertionError("dumps must reject non-dictionaries")
+elif scenario == "deduplication":
+    try:
+        scope["unique"](None)
+    except TypeError:
+        pass
+    else:
+        raise AssertionError("unique must reject None")
+elif scenario == "pagination":
+    values = list(range(8))
+    assert scope["page"](values, 3, offset=2) == [2, 3, 4]
+else:
+    raise AssertionError(f"unknown validator: {scenario}")
+"""
+
+
+_CUSTOM_HARNESS = r"""
+import json
+import sys
+
+payload = json.load(sys.stdin)
+safe_builtins = {
+    "abs": abs,
+    "all": all,
+    "any": any,
+    "bool": bool,
+    "bytes": bytes,
+    "dict": dict,
+    "enumerate": enumerate,
+    "float": float,
+    "int": int,
+    "IndexError": IndexError,
+    "isinstance": isinstance,
+    "len": len,
+    "list": list,
+    "max": max,
+    "min": min,
+    "range": range,
+    "reversed": reversed,
+    "round": round,
+    "set": set,
+    "sorted": sorted,
+    "str": str,
+    "sum": sum,
+    "tuple": tuple,
+    "zip": zip,
+    "AssertionError": AssertionError,
+    "KeyError": KeyError,
+    "PermissionError": PermissionError,
+    "RuntimeError": RuntimeError,
+    "TypeError": TypeError,
+    "ValueError": ValueError,
+}
+scope = {"__builtins__": safe_builtins}
+exec(compile(payload["source"], "candidate.py", "exec"), scope)
+exec(compile(payload["check"], "check.py", "exec"), scope)
+"""
+
+
 def _safe_syntax(tree: ast.AST) -> bool:
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
@@ -156,6 +287,21 @@ def _assignments(tree: ast.AST) -> dict[str, object]:
     return assignments
 
 
+def _run_custom_check(content: str, check: str) -> bool:
+    try:
+        completed = subprocess.run(
+            [sys.executable, "-I", "-c", _CUSTOM_HARNESS],
+            input=json.dumps({"source": content, "check": check}),
+            text=True,
+            capture_output=True,
+            timeout=1.0,
+            check=False,
+        )
+    except subprocess.TimeoutExpired:
+        return False
+    return completed.returncode == 0
+
+
 def validate_revision(episode: ConflictEpisode, content: str) -> bool:
     """Validate behavior without exposing evaluator rules to the recovery model."""
     if not content.strip():
@@ -181,9 +327,43 @@ def validate_revision(episode: ConflictEpisode, content: str) -> bool:
     if any(actual_assignments.get(key) != value for key, value in expected_assignments.items()):
         return False
 
+    custom_check = str(episode.metadata.get("behavior_check", ""))
+    if custom_check:
+        return _run_custom_check(content, custom_check)
+
     try:
         completed = subprocess.run(
             [sys.executable, "-I", "-c", _BEHAVIOR_HARNESS, validator],
+            input=content,
+            text=True,
+            capture_output=True,
+            timeout=1.0,
+            check=False,
+        )
+    except subprocess.TimeoutExpired:
+        return False
+    return completed.returncode == 0
+
+
+def validate_dependencies(episode: ConflictEpisode, content: str) -> bool:
+    """Run only the pre-existing behavior on which the losing task depends."""
+    if not content.strip():
+        return False
+    try:
+        tree = ast.parse(content, filename=episode.file_path)
+    except SyntaxError:
+        return False
+    if not _safe_syntax(tree):
+        return False
+    validator = str(episode.metadata.get("validator", ""))
+    if not validator:
+        return True
+    custom_check = str(episode.metadata.get("dependency_check", ""))
+    if custom_check:
+        return _run_custom_check(content, custom_check)
+    try:
+        completed = subprocess.run(
+            [sys.executable, "-I", "-c", _DEPENDENCY_HARNESS, validator],
             input=content,
             text=True,
             capture_output=True,

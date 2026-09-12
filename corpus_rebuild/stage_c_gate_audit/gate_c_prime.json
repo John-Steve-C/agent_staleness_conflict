@@ -1,0 +1,1317 @@
+{
+  "action_staleness_fully_crossed": false,
+  "admitted_family_clusters_by_action": {
+    "abandon": 0,
+    "adapt": 0,
+    "escalate": 0
+  },
+  "admitted_fraction_in_40_70_band": 0.0,
+  "admitted_item_count": 0,
+  "all_pilots_meet_minimum_context": false,
+  "candidate_episode_count": 128,
+  "candidate_family_count": 8,
+  "floor_control_count": 20,
+  "minimum_context_tokens": 8000,
+  "missing_crossed_cell_count": 256,
+  "missing_crossed_cells": [
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 1
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 2
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 3
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 4
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 5
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 6
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 7
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 8
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 9
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 10
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 11
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 12
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 13
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 14
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 15
+    },
+    {
+      "correct_action": "abandon",
+      "family": "authorization",
+      "k": 16
+    },
+    {
+      "correct_action": "adapt",
+      "family": "authorization",
+      "k": 4
+    },
+    {
+      "correct_action": "adapt",
+      "family": "authorization",
+      "k": 5
+    },
+    {
+      "correct_action": "adapt",
+      "family": "authorization",
+      "k": 6
+    },
+    {
+      "correct_action": "adapt",
+      "family": "authorization",
+      "k": 7
+    },
+    {
+      "correct_action": "adapt",
+      "family": "authorization",
+      "k": 8
+    },
+    {
+      "correct_action": "adapt",
+      "family": "authorization",
+      "k": 9
+    },
+    {
+      "correct_action": "adapt",
+      "family": "authorization",
+      "k": 10
+    },
+    {
+      "correct_action": "adapt",
+      "family": "authorization",
+      "k": 11
+    },
+    {
+      "correct_action": "adapt",
+      "family": "authorization",
+      "k": 12
+    },
+    {
+      "correct_action": "adapt",
+      "family": "authorization",
+      "k": 13
+    },
+    {
+      "correct_action": "adapt",
+      "family": "authorization",
+      "k": 14
+    },
+    {
+      "correct_action": "adapt",
+      "family": "authorization",
+      "k": 15
+    },
+    {
+      "correct_action": "adapt",
+      "family": "authorization",
+      "k": 16
+    },
+    {
+      "correct_action": "escalate",
+      "family": "authorization",
+      "k": 1
+    },
+    {
+      "correct_action": "escalate",
+      "family": "authorization",
+      "k": 2
+    },
+    {
+      "correct_action": "escalate",
+      "family": "authorization",
+      "k": 3
+    },
+    {
+      "correct_action": "abandon",
+      "family": "cache",
+      "k": 1
+    },
+    {
+      "correct_action": "abandon",
+      "family": "cache",
+      "k": 2
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 3
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 4
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 5
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 6
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 7
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 8
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 9
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 10
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 11
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 12
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 13
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 14
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 15
+    },
+    {
+      "correct_action": "adapt",
+      "family": "cache",
+      "k": 16
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 1
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 2
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 3
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 4
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 5
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 6
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 7
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 8
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 9
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 10
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 11
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 12
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 13
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 14
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 15
+    },
+    {
+      "correct_action": "escalate",
+      "family": "cache",
+      "k": 16
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 1
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 2
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 3
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 4
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 5
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 6
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 7
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 8
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 9
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 10
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 11
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 12
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 13
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 14
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 15
+    },
+    {
+      "correct_action": "abandon",
+      "family": "deduplication",
+      "k": 16
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 1
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 2
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 3
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 4
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 5
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 6
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 7
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 8
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 9
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 10
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 11
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 12
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 13
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 14
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 15
+    },
+    {
+      "correct_action": "escalate",
+      "family": "deduplication",
+      "k": 16
+    },
+    {
+      "correct_action": "abandon",
+      "family": "formatting",
+      "k": 1
+    },
+    {
+      "correct_action": "abandon",
+      "family": "formatting",
+      "k": 2
+    },
+    {
+      "correct_action": "abandon",
+      "family": "formatting",
+      "k": 3
+    },
+    {
+      "correct_action": "abandon",
+      "family": "formatting",
+      "k": 4
+    },
+    {
+      "correct_action": "adapt",
+      "family": "formatting",
+      "k": 5
+    },
+    {
+      "correct_action": "adapt",
+      "family": "formatting",
+      "k": 6
+    },
+    {
+      "correct_action": "adapt",
+      "family": "formatting",
+      "k": 7
+    },
+    {
+      "correct_action": "adapt",
+      "family": "formatting",
+      "k": 8
+    },
+    {
+      "correct_action": "adapt",
+      "family": "formatting",
+      "k": 9
+    },
+    {
+      "correct_action": "adapt",
+      "family": "formatting",
+      "k": 10
+    },
+    {
+      "correct_action": "adapt",
+      "family": "formatting",
+      "k": 11
+    },
+    {
+      "correct_action": "adapt",
+      "family": "formatting",
+      "k": 12
+    },
+    {
+      "correct_action": "adapt",
+      "family": "formatting",
+      "k": 13
+    },
+    {
+      "correct_action": "adapt",
+      "family": "formatting",
+      "k": 14
+    },
+    {
+      "correct_action": "adapt",
+      "family": "formatting",
+      "k": 15
+    },
+    {
+      "correct_action": "adapt",
+      "family": "formatting",
+      "k": 16
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 1
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 2
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 3
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 4
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 5
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 6
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 7
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 8
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 9
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 10
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 11
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 12
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 13
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 14
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 15
+    },
+    {
+      "correct_action": "escalate",
+      "family": "formatting",
+      "k": 16
+    },
+    {
+      "correct_action": "abandon",
+      "family": "normalization",
+      "k": 1
+    },
+    {
+      "correct_action": "abandon",
+      "family": "normalization",
+      "k": 2
+    },
+    {
+      "correct_action": "abandon",
+      "family": "normalization",
+      "k": 3
+    },
+    {
+      "correct_action": "adapt",
+      "family": "normalization",
+      "k": 4
+    },
+    {
+      "correct_action": "adapt",
+      "family": "normalization",
+      "k": 5
+    },
+    {
+      "correct_action": "adapt",
+      "family": "normalization",
+      "k": 6
+    },
+    {
+      "correct_action": "adapt",
+      "family": "normalization",
+      "k": 7
+    },
+    {
+      "correct_action": "adapt",
+      "family": "normalization",
+      "k": 8
+    },
+    {
+      "correct_action": "adapt",
+      "family": "normalization",
+      "k": 9
+    },
+    {
+      "correct_action": "adapt",
+      "family": "normalization",
+      "k": 10
+    },
+    {
+      "correct_action": "adapt",
+      "family": "normalization",
+      "k": 11
+    },
+    {
+      "correct_action": "adapt",
+      "family": "normalization",
+      "k": 12
+    },
+    {
+      "correct_action": "adapt",
+      "family": "normalization",
+      "k": 13
+    },
+    {
+      "correct_action": "adapt",
+      "family": "normalization",
+      "k": 14
+    },
+    {
+      "correct_action": "adapt",
+      "family": "normalization",
+      "k": 15
+    },
+    {
+      "correct_action": "adapt",
+      "family": "normalization",
+      "k": 16
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 1
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 2
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 3
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 4
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 5
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 6
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 7
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 8
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 9
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 10
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 11
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 12
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 13
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 14
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 15
+    },
+    {
+      "correct_action": "escalate",
+      "family": "normalization",
+      "k": 16
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 1
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 2
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 3
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 4
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 5
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 6
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 7
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 8
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 9
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 10
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 11
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 12
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 13
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 14
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 15
+    },
+    {
+      "correct_action": "abandon",
+      "family": "pagination",
+      "k": 16
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 1
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 2
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 3
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 4
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 5
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 6
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 7
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 8
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 9
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 10
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 11
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 12
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 13
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 14
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 15
+    },
+    {
+      "correct_action": "escalate",
+      "family": "pagination",
+      "k": 16
+    },
+    {
+      "correct_action": "abandon",
+      "family": "serialization",
+      "k": 1
+    },
+    {
+      "correct_action": "abandon",
+      "family": "serialization",
+      "k": 2
+    },
+    {
+      "correct_action": "abandon",
+      "family": "serialization",
+      "k": 3
+    },
+    {
+      "correct_action": "abandon",
+      "family": "serialization",
+      "k": 4
+    },
+    {
+      "correct_action": "abandon",
+      "family": "serialization",
+      "k": 5
+    },
+    {
+      "correct_action": "abandon",
+      "family": "serialization",
+      "k": 6
+    },
+    {
+      "correct_action": "adapt",
+      "family": "serialization",
+      "k": 7
+    },
+    {
+      "correct_action": "adapt",
+      "family": "serialization",
+      "k": 8
+    },
+    {
+      "correct_action": "adapt",
+      "family": "serialization",
+      "k": 9
+    },
+    {
+      "correct_action": "adapt",
+      "family": "serialization",
+      "k": 10
+    },
+    {
+      "correct_action": "adapt",
+      "family": "serialization",
+      "k": 11
+    },
+    {
+      "correct_action": "adapt",
+      "family": "serialization",
+      "k": 12
+    },
+    {
+      "correct_action": "adapt",
+      "family": "serialization",
+      "k": 13
+    },
+    {
+      "correct_action": "adapt",
+      "family": "serialization",
+      "k": 14
+    },
+    {
+      "correct_action": "adapt",
+      "family": "serialization",
+      "k": 15
+    },
+    {
+      "correct_action": "adapt",
+      "family": "serialization",
+      "k": 16
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 1
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 2
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 3
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 4
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 5
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 6
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 7
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 8
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 9
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 10
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 11
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 12
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 13
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 14
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 15
+    },
+    {
+      "correct_action": "escalate",
+      "family": "serialization",
+      "k": 16
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 1
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 2
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 3
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 4
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 5
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 6
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 7
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 8
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 9
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 10
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 11
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 12
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 13
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 14
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 15
+    },
+    {
+      "correct_action": "abandon",
+      "family": "transaction",
+      "k": 16
+    },
+    {
+      "correct_action": "adapt",
+      "family": "transaction",
+      "k": 6
+    },
+    {
+      "correct_action": "adapt",
+      "family": "transaction",
+      "k": 7
+    },
+    {
+      "correct_action": "adapt",
+      "family": "transaction",
+      "k": 8
+    },
+    {
+      "correct_action": "adapt",
+      "family": "transaction",
+      "k": 9
+    },
+    {
+      "correct_action": "adapt",
+      "family": "transaction",
+      "k": 10
+    },
+    {
+      "correct_action": "adapt",
+      "family": "transaction",
+      "k": 11
+    },
+    {
+      "correct_action": "adapt",
+      "family": "transaction",
+      "k": 12
+    },
+    {
+      "correct_action": "adapt",
+      "family": "transaction",
+      "k": 13
+    },
+    {
+      "correct_action": "adapt",
+      "family": "transaction",
+      "k": 14
+    },
+    {
+      "correct_action": "adapt",
+      "family": "transaction",
+      "k": 15
+    },
+    {
+      "correct_action": "adapt",
+      "family": "transaction",
+      "k": 16
+    },
+    {
+      "correct_action": "escalate",
+      "family": "transaction",
+      "k": 1
+    },
+    {
+      "correct_action": "escalate",
+      "family": "transaction",
+      "k": 2
+    },
+    {
+      "correct_action": "escalate",
+      "family": "transaction",
+      "k": 3
+    },
+    {
+      "correct_action": "escalate",
+      "family": "transaction",
+      "k": 4
+    },
+    {
+      "correct_action": "escalate",
+      "family": "transaction",
+      "k": 5
+    }
+  ],
+  "passed": false,
+  "staleness_levels": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ]
+}

@@ -14,6 +14,9 @@ class PayloadCondition(str, Enum):
     P5 = "P5"
     P5_ORACLE = "P5-oracle"
     P1_PAD = "P1-pad"
+    P6 = "P6"
+    P7 = "P7"
+    P8 = "P8"
     ADAPTIVE = "adaptive"
 
 
@@ -25,6 +28,12 @@ class RecoveryAction(str, Enum):
     ESCALATE = "escalate"
 
 
+class RefusalPosition(str, Enum):
+    HEAD = "head"
+    MIDDLE = "middle"
+    TAIL = "tail"
+
+
 @dataclass(frozen=True)
 class PolicyPrediction:
     action: RecoveryAction
@@ -32,6 +41,7 @@ class PolicyPrediction:
     source: str
     prompt_tokens: int = 0
     completion_tokens: int = 0
+    wall_clock_seconds: float = 0.0
     error: str = ""
 
 
@@ -83,6 +93,7 @@ class ConflictEpisode:
     recommended_action: RecoveryAction
     refinement_hint: str
     correct_action: RecoveryAction
+    receiver_trajectory: tuple[str, ...] = ()
     padding_text: str = ""
     metadata: dict[str, Any] = field(default_factory=dict)
 
@@ -97,6 +108,7 @@ class ConflictEpisode:
         )
         values["staleness"] = StalenessMeasures(**values["staleness"])
         values["winner_trajectory"] = tuple(values.get("winner_trajectory", []))
+        values["receiver_trajectory"] = tuple(values.get("receiver_trajectory", []))
         values["recommended_action"] = RecoveryAction(values["recommended_action"])
         values["correct_action"] = RecoveryAction(values["correct_action"])
         return cls(**values)
@@ -147,7 +159,15 @@ class ReplayResult:
     policy_action_correct: bool | None = None
     policy_prompt_tokens: int = 0
     policy_completion_tokens: int = 0
+    policy_wall_clock_seconds: float = 0.0
     policy_source: str = ""
+    payload_action: RecoveryAction | None = None
+    payload_action_correct: bool | None = None
+    deferred_to_payload: bool | None = None
+    receiver_context_target_tokens: int = 0
+    receiver_trajectory_tokens: int = 0
+    refusal_position: RefusalPosition | None = None
+    payload_context_ratio: float = 0.0
     notes: str = ""
 
     def to_dict(self) -> dict[str, Any]:
@@ -158,5 +178,11 @@ class ReplayResult:
         data["action"] = self.action.value
         data["policy_action"] = (
             self.policy_action.value if self.policy_action is not None else ""
+        )
+        data["payload_action"] = (
+            self.payload_action.value if self.payload_action is not None else ""
+        )
+        data["refusal_position"] = (
+            self.refusal_position.value if self.refusal_position is not None else ""
         )
         return data

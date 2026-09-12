@@ -1,0 +1,9 @@
+correct_action,comparator,baseline,n_episode_pairs,n_family_clusters,baseline_success_rate,comparator_success_rate,paired_success_difference,family_clustered_bootstrap_95_low,family_clustered_bootstrap_95_high,family_clustered_randomization_p,episode_gains,episode_losses,episode_ties,mde_80pct_power,mde_status
+abandon,P0,P1,49,4,1.0,0.0,-1.0,-1.0,-1.0,0.125,0,49,0,,not_estimable_saturated_baseline
+abandon,P1-pad,P1,49,4,1.0,1.0,0.0,0.0,0.0,1.0,0,0,49,,not_estimable_saturated_baseline
+abandon,P2,P1,49,4,1.0,1.0,0.0,0.0,0.0,1.0,0,0,49,,not_estimable_saturated_baseline
+abandon,P3,P1,49,4,1.0,1.0,0.0,0.0,0.0,1.0,0,0,49,,not_estimable_saturated_baseline
+abandon,P4,P1,49,4,1.0,1.0,0.0,0.0,0.0,1.0,0,0,49,,not_estimable_saturated_baseline
+abandon,P5,P1,49,4,1.0,1.0,0.0,0.0,0.0,1.0,0,0,49,,not_estimable_saturated_baseline
+abandon,P5-oracle,P1,49,4,1.0,1.0,0.0,0.0,0.0,1.0,0,0,49,,not_estimable_saturated_baseline
+abandon,adaptive,P1,49,4,1.0,1.0,0.0,0.0,0.0,1.0,0,0,49,,not_estimable_saturated_baseline

@@ -4,7 +4,12 @@ from staleness_adaptive.case_studies import (
     ControlledRecoveryBackend,
     build_controlled_episodes,
 )
-from staleness_adaptive.models import PayloadCondition, RecoveryAction, RecoveryAttempt
+from staleness_adaptive.models import (
+    PayloadCondition,
+    RecoveryAction,
+    RecoveryAttempt,
+    RefusalPosition,
+)
 from staleness_adaptive.replay import ReplayRunner
 
 
@@ -58,6 +63,24 @@ class ReplayTests(unittest.TestCase):
         self.assertEqual(p1_low, p3_low)
         self.assertLess(sum(p1_high), sum(p3_high))
         self.assertTrue(all(item.recovery_success for item in adaptive))
+
+    def test_records_context_position_signal_ratio_and_deference(self):
+        episode = build_controlled_episodes()[0]
+
+        result = ReplayRunner(ControlledRecoveryBackend()).run(
+            episode,
+            PayloadCondition.P6,
+            receiver_context_tokens=1000,
+            refusal_position=RefusalPosition.MIDDLE,
+            injected_route=RecoveryAction.ADAPT,
+        )
+
+        self.assertEqual(result.receiver_context_target_tokens, 1000)
+        self.assertEqual(result.receiver_trajectory_tokens, 1000)
+        self.assertEqual(result.refusal_position, RefusalPosition.MIDDLE)
+        self.assertTrue(result.payload_action_correct)
+        self.assertTrue(result.deferred_to_payload)
+        self.assertGreater(result.payload_context_ratio, 0)
 
 
 if __name__ == "__main__":

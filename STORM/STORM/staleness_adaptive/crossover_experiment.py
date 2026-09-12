@@ -354,6 +354,18 @@ PADDING_TEXT = (
     "formatting changelog setup metadata helper configuration benchmark history"
 )
 
+STAGE_C_CONDITIONS = (
+    PayloadCondition.P0,
+    PayloadCondition.P1,
+    PayloadCondition.P2,
+    PayloadCondition.P3,
+    PayloadCondition.P4,
+    PayloadCondition.P5,
+    PayloadCondition.P5_ORACLE,
+    PayloadCondition.P1_PAD,
+    PayloadCondition.ADAPTIVE,
+)
+
 
 @dataclass(frozen=True)
 class FrozenActionPolicy:
@@ -1066,7 +1078,7 @@ def _write_report(
             for item in results
             if item.requested_condition == condition
         )
-        for condition in PayloadCondition
+        for condition in STAGE_C_CONDITIONS
     }
     policy_by_group = {str(row["correct_action_group"]): row for row in policy_rows}
     robustness = {
@@ -1097,7 +1109,7 @@ def _write_report(
     for k in config["staleness_levels"]:
         rates = {
             condition.value: float(cell[(k, condition.value)]["recovery_success_rate"])
-            for condition in PayloadCondition
+            for condition in STAGE_C_CONDITIONS
         }
         p3_difference = rates[PayloadCondition.P3.value] - rates[PayloadCondition.P1.value]
         lines.append(
@@ -1117,7 +1129,7 @@ def _write_report(
             "|---|---:|---:|---:|---:|---:|---:|---:|",
         ]
     )
-    for condition in PayloadCondition:
+    for condition in STAGE_C_CONDITIONS:
         condition_rows = [
             row for row in by_k_rows if row["condition"] == condition.value
         ]
@@ -1450,7 +1462,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--conditions",
-        default=",".join(item.value for item in PayloadCondition),
+        default=",".join(item.value for item in STAGE_C_CONDITIONS),
     )
     parser.add_argument("--seeds", default="0,1,2")
     parser.add_argument("--staleness-levels", default="1-16")
@@ -1464,7 +1476,7 @@ def main() -> None:
     parser.add_argument("--max-tokens", type=int, default=400)
     parser.add_argument("--timeout", type=float, default=300.0)
     args = parser.parse_args()
-    required = set(PayloadCondition)
+    required = set(STAGE_C_CONDITIONS)
     supplied = {PayloadCondition(item) for item in args.conditions.split(",")}
     if supplied != required:
         parser.error(
